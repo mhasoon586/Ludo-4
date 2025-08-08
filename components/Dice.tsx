@@ -14,6 +14,8 @@
 +    <div className="flex flex-col items-center space-y-6 p-6 bg-gray-800/50 backdrop-blur-sm rounded-xl border border-gray-700">
 +      <h3 className="text-lg font-semibold text-gray-200">Roll the Dice</h3>
        <div
+   )
+ }
 -        className={`relative w-20 h-20 md:w-28 md:h-28 bg-white rounded-2xl shadow-lg border-2 border-gray-300 flex items-center justify-center transition-transform duration-500 ${isRolling ? 'animate-spin' : ''}`}
 +        className={`relative w-24 h-24 md:w-32 md:h-32 bg-white rounded-2xl shadow-2xl border-2 border-gray-300 flex items-center justify-center transition-all duration-500 ${isRolling ? 'animate-spin scale-110' : 'hover:scale-105'}`}
        >
