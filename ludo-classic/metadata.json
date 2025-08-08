@@ -1,0 +1,5 @@
+{
+  "name": "Ludo Classic",
+  "description": "A classic Ludo board game for up to four players. Roll the dice, move your pawns, and race to the finish line. Built with React and Tailwind CSS.",
+  "requestFramePermissions": []
+}

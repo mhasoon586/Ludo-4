@@ -1,0 +1,33 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ludo Classic</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      /* Custom grid for 15x15 board */
+      .grid-cols-15 {
+        grid-template-columns: repeat(15, minmax(0, 1fr));
+      }
+      .grid-rows-15 {
+        grid-template-rows: repeat(15, minmax(0, 1fr));
+      }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://esm.sh/react-dom@^19.1.1/",
+    "react/": "https://esm.sh/react@^19.1.1/",
+    "react": "https://esm.sh/react@^19.1.1"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body>
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+</body>
+</html>
