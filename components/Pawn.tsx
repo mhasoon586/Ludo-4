@@ -17,4 +17,4 @@
    );
  };
 
-export default Pawn
+export default Pawn;

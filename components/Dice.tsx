@@ -10,9 +10,7 @@
    };
 
    return (
-   )
- }
--    <div className="flex flex-col items-center space-y-4">
+    <div className="flex flex-col items-center space-y-6 p-6 bg-gray-800/50 backdrop-blur-sm rounded-xl border border-gray-700">
 +    <div className="flex flex-col items-center space-y-6 p-6 bg-gray-800/50 backdrop-blur-sm rounded-xl border border-gray-700">
 +      <h3 className="text-lg font-semibold text-gray-200">Roll the Dice</h3>
        <div
@@ -33,3 +31,5 @@
      </div>
    );
  };
+
+export default Dice;

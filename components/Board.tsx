@@ -1,5 +1,5 @@
 import React from 'react';
-import { PawnState, PlayerColor, PawnPosition } from '../types';
+import { PawnState, PlayerColor } from '../types';
 import {
   BOARD_SIZE,
   PLAYER_COLORS_HEX,
@@ -27,25 +27,36 @@ const Board: React.FC<BoardProps> = ({ pawns, onPawnClick }) => {
   const cells = Array.from({ length: BOARD_SIZE * BOARD_SIZE }, (_, i) => i);
 
   const getPawnsAtCoord = (row: number, col: number): PawnState[] => {
-    return pawns.filter(pawn => {
-      if (pawn.position.type === 'track') {
-        const [trackRow, trackCol] = TRACK_COORDS[pawn.position.index];
-        return trackRow === row && trackCol === col;
-      }
-      if (pawn.position.type === 'home_row') {
-        const [homeRow, homeCol] = HOME_ROW_MAP[pawn.color][pawn.position.index];
-        return homeRow === row && homeCol === col;
-      }
-      if (pawn.position.type === 'home_base') {
-        const [baseRow, baseCol] = HOME_BASE_MAP[pawn.color][pawn.position.index];
-        return baseRow === row && baseCol === col;
-      }
-      if (pawn.position.type === 'home_triangle') {
-        const [triangleRow, triangleCol] = HOME_TRIANGLE_MAP[pawn.color];
-        return triangleRow === row && triangleCol === col;
-      }
-      return false;
+    const pawnsOnCell: PawnState[] = [];
+    
+    pawns.forEach(pawn => {
+        let pawnCoord: [number, number] | null = null;
+        if (typeof pawn.position === 'number') {
+            pawnCoord = TRACK_COORDS[pawn.position];
+        } else if (typeof pawn.position === 'string') {
+            if (pawn.position.startsWith('HOME_')) {
+                const parts = pawn.position.split('_');
+                const color = parts[1] as PlayerColor;
+                const index = parseInt(parts[2]);
+                pawnCoord = HOME_BASE_MAP[color][index];
+            } else if (pawn.position.startsWith('R') || pawn.position.startsWith('G') || pawn.position.startsWith('Y') || pawn.position.startsWith('B')) {
+                const colorKey = Object.keys(PlayerColor).find(c => c.startsWith(pawn.position.charAt(0))) as keyof typeof PlayerColor;
+                const color = PlayerColor[colorKey];
+                const index = parseInt(pawn.position.slice(1)) - 1;
+                if(color && index >=0 && index < HOME_ROW_MAP[color].length){
+                    pawnCoord = HOME_ROW_MAP[color][index];
+                }
+            } else if (pawn.position === 'FINISHED') {
+                 pawnCoord = HOME_TRIANGLE_MAP[pawn.color];
+            }
+        }
+
+        if (pawnCoord && pawnCoord[0] === row && pawnCoord[1] === col) {
+            pawnsOnCell.push(pawn);
+        }
     });
+
+    return pawnsOnCell;
   };
 
   const getCellStylingClass = (row: number, col: number): string => {
@@ -109,7 +120,5 @@ const Board: React.FC<BoardProps> = ({ pawns, onPawnClick }) => {
     </div>
   );
 };
-
-export default trackIndex
 
 export default Board;
